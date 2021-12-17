@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- icon -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <title>User Page</title>
+</head>
+<body>
+<div class="container mt-5">
+    <h2>User Page</h2>
+
+
+            <div id="userContent"></div>
+
+
+</div>
+
+<!-- Modal add user -->
+<div class="modal fade" id="modalAdd" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between">
+                <h4>Add User</h4>
+                <a id="closeModalAdd" data-dismiss="modal" style="cursor:pointer"><i class="ri-close-line"></i></a>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="formAddUser" method="post">
+                    <div class="form-group">
+                        <label for="inputName">Name</label>
+                        <input type="text" class="form-control" id="inputName" name="name" placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEmail">Email address</label>
+                        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Enter your email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Add user</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function(){
+        loadListUser();
+    })
+
+    $('#formAddUser').submit(function(){
+        formData = $('#formAddUser').serialize();
+        $.ajax({
+            url:'usersave',
+            type:'post',
+            data: formData,
+            success:function(){
+                $('#modalAdd').modal('hide');
+                loadListUser();
+            }
+        });
+        return false;
+    });
+
+    function loadListUser() {
+        $.ajax({
+                url:'userlist',
+                type:'get',
+                dataType:'html',
+                success:function(text){
+                      $('#userContent').html(text);
+                }
+        });
+    }
+</script>
+
+</body>
+</html>

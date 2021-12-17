@@ -1,0 +1,32 @@
+<div th:switch="${userlist}">
+    <div th:case="null" class="alert alert-warning" role="alert">
+        No Users Yet!
+    </div>
+<div>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd" id="btn-add">
+        <span class="glyphicon glyphicon-plus"> Add User </span>
+    </button>
+</div>
+<div th:case="*" class="mt-2">
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userlist}">
+        <th th:text="${user.id}" scope="row"></th>
+        <th th:text="${user.name}"></th>
+        <th th:text="${user.email}"></th>
+        <th><a th:href="@{/edit/{id}(id = ${user.id})}" class="btn btn-warning">Edit</a>
+            <a th:href="@{/delete/{id}(id = ${user.id})}" class="btn btn-danger">Delete</a>
+        </th>
+    </tr>
+    </tbody>
+</table>
+</div>
+</div>
